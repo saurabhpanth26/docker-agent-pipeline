@@ -1,0 +1,44 @@
+pipeline {
+  agent {
+        label 'docker-slave'
+    }
+  stages {
+    stage('Build Start') {
+      steps {
+        echo 'test for parallel pipeline'
+        echo 'build start'
+      }
+    }
+
+    stage('testing parallel pipeline') {
+            parallel {
+                stage('stage 1') {
+                    agent {
+                        label 'docker-slave'
+                    }
+                    steps {
+                        echo 'stage 1'
+                    }
+                }
+
+                stage('stage 2') {
+                    agent {
+                        label 'docker-slave'
+                    }
+                    steps {
+                        echo 'stage 2'
+                    }
+                }
+
+                stage('stage 3') {
+                    agent {
+                        label 'docker-slave'
+                    }
+                    steps {
+                        echo 'stage 3'
+                    }
+                }
+            }
+        }
+    }
+}
